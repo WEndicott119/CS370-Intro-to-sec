@@ -1,9 +1,14 @@
+#########################################
+# Resources:
+# https://stackoverflow.com/questions/16008670/how-to-hash-a-string-into-8-digits/16008760#16008760
+# https://llimllib.github.io/bloomfilter-tutorial/
+##########################################
+
 import hashlib
 import sys
 
 # create an array to hold results
 bloom3 = [0] * 1000000
-
 bloom5 = [0] * 1000000
 
 # converts each line into hash and then inputs them into the bloom filter
@@ -22,6 +27,14 @@ def pop_bloom(string):
     sha1_hash = int(hashlib.sha1(string.encode(
         "utf-8")).hexdigest(), 16) % (10 ** 6)
     print("sha1: ", sha1_hash)
+
+    sha224_hash = int(hashlib.sha224(string.encode(
+        "utf-8")).hexdigest(), 16) % (10 ** 6)
+    print("sha224: ", sha224_hash)
+
+    sha384_hash = int(hashlib.sha384(string.encode(
+        "utf-8")).hexdigest(), 16) % (10 ** 6)
+    print("sha384: ", sha384_hash)
 
     if bloom3[sha256_hash] == 1 & bloom3[md5_hash] == 1 & bloom3[sha1_hash] == 1:
         print("That password maybe no good.")
@@ -53,7 +66,7 @@ string_one = read_file_contents(sys.argv[1])
 print("break")
 string_two = read_file_contents(sys.argv[2])
 
-# need to add way to read additional files to check
+
 # way to calculate how big each bloom filter should be.
 # way to tell the user if the password passes the bloom filter or has been seen maybe
 # wrtie to a file the output of the users file input
