@@ -2,13 +2,11 @@ import hashlib
 
 # create an array to hold results
 bloom3 = [0] * 1000000
-# print(bloom3)
 
 bloom5 = [0] * 1000000
-# print(bloom5)
 
 
-def check_hash(string):
+def pop_bloom(string):
 
     sha256_hash = int(hashlib.sha256(
         string.encode("utf-8")).hexdigest(), 16) % (10 ** 6)
@@ -37,7 +35,7 @@ def check_hash(string):
 
 with open("dictionary2.txt", 'r') as file:
     for file_contents in file:
-        check_hash(file_contents)
+        pop_bloom(file_contents)
 
 
 print(bloom3)
