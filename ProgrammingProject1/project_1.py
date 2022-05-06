@@ -8,47 +8,51 @@ import hashlib
 import sys
 
 # create an array to hold results
-bloom3 = [0] * 192000001
-bloom5 = [0] * 192000001
+bloom3 = [0] * 9388608
+bloom5 = [0] * 9388608
 
 # converts each line into hash and then inputs them into the bloom filter
+
+# hash functions populating the bloom filters.
 
 
 def pop_bloom(string):
 
     sha256_hash = int(hashlib.sha256(
-        string.encode("utf-8")).hexdigest(), 16) % (192000000)
+        string.encode("utf-8")).hexdigest(), 16) % (9388608)
     bloom3[sha256_hash] = 1
     bloom5[sha256_hash] = 1
 
     md5_hash = int(hashlib.md5(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
     bloom3[md5_hash] = 1
     bloom5[md5_hash] = 1
 
     sha512_hash = int(hashlib.sha512(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
     bloom3[sha512_hash] = 1
     bloom5[sha512_hash] = 1
 
     sha224_hash = int(hashlib.sha224(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
     bloom5[sha224_hash] = 1
 
     sha384_hash = int(hashlib.sha384(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
     bloom5[sha384_hash] = 1
+
+# 3 hashing function bloom filter.
 
 
 def check_user_3(string):
     sha256_hash = int(hashlib.sha256(
-        string.encode("utf-8")).hexdigest(), 16) % (192000000)
+        string.encode("utf-8")).hexdigest(), 16) % (9388608)
 
     md5_hash = int(hashlib.md5(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     sha512_hash = int(hashlib.sha512(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     if bloom3[sha256_hash] == 1 and bloom3[md5_hash] == 1 and bloom3[sha512_hash] == 1:
         result = "Maybe     "
@@ -71,22 +75,24 @@ def check_user_3(string):
     file.write(string)
     file.close()
 
+# this is the 5 hashing function bloom filter
+
 
 def check_user_5(string):
     sha256_hash = int(hashlib.sha256(
-        string.encode("utf-8")).hexdigest(), 16) % (192000000)
+        string.encode("utf-8")).hexdigest(), 16) % (9388608)
 
     md5_hash = int(hashlib.md5(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     sha512_hash = int(hashlib.sha512(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     sha224_hash = int(hashlib.sha224(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     sha384_hash = int(hashlib.sha384(string.encode(
-        "utf-8")).hexdigest(), 16) % (192000000)
+        "utf-8")).hexdigest(), 16) % (9388608)
 
     if bloom5[sha256_hash] == 1 and bloom5[md5_hash] == 1 and bloom5[sha512_hash] == 1 and bloom5[sha224_hash] == 1 and bloom5[sha384_hash] == 1:
         result = "Maybe     "
@@ -115,6 +121,8 @@ def check_user_5(string):
     file.write(string)
     file.close()
 
+# function to populate the bloom filters from a file with X amount of words
+
 
 def read_file_contents(string):
 
@@ -125,6 +133,8 @@ def read_file_contents(string):
             pop_bloom(file_contents)
 
     file.close()
+
+# function to read the input from a file given by the user.
 
 
 def read_user_input(string):
