@@ -8,12 +8,22 @@ https://stackoverflow.com/questions/34520928/how-to-generate-a-qr-code-for-googl
 https://www.educative.io/edpresso/what-is-base64b32decode-in-python
 https://www.geeksforgeeks.org/struct-module-python/
 https://geekyhumans.com/how-to-secure-files-using-python/
+https://pynative.com/python-current-date-time/
+
+
+install this library 
+pip3 install --user pyqrcode
+
+make sure there is no current secret.txt file or it'll give the wrong rseults.
 
 to run the program run the following commands for the first and second part
+The program may have a small delay to get the otp and GA in sync.
 
 
 This generates the qr code and creates the secret key:
 python3 totp.py --generate-qr
+
+The above line with output the QR in the terminal as well as a svg file.
 
 This starts the otp and the output to the terminal
 python3 totp.py --get-otp

@@ -7,7 +7,14 @@ import time
 import string
 import random
 import sys
+from datetime import datetime
 
+
+##############################################
+# This recevies the secret key and interval  #
+# which is used to replace the counter for   #
+# hotp.                                      #
+##############################################
 
 def hotp(secret, interval):
     # The base64.b32decode() method decodes a bytes-like object using Base32 alphabets into a plain byte-string.
@@ -22,6 +29,13 @@ def hotp(secret, interval):
     return h
 
 
+##############################################
+# This recevies the secret key and sends it  #
+# to the hotp function where the counter for #
+# hotp is replaced with the time interval in #
+# our case we are using 30 second intervals. #
+##############################################
+
 def totp(secret):
     # setting the otp for 30 seconds intervals
     otp = str(hotp(secret, interval=int(time.time())//30))
@@ -29,6 +43,11 @@ def totp(secret):
     while len(otp) != 6:
         otp += '0'
     return otp
+
+##############################################
+# The first part creates the key that will be#
+# used for the otp and then writes it to .txt#
+##############################################
 
 
 def create_qr():
@@ -48,15 +67,46 @@ def create_qr():
     file.close()
 
 
+##############################################
+# The first part creates the key that will be#
+# used for the otp.                          #
+# this takes the first argument and creates a#
+# secret file.                               #
+##############################################
+
+
 if(sys.argv[1] == "--generate-qr"):
+    now = datetime.now()
+    if(int(now.second) <= 30):
+        wait_time = abs(30 - int(now.second))
+        print("syncing please wait")
+    else:
+        wait_time = abs(60 - int(now.second))
+        print("syncing please wait")
+    time.sleep(wait_time)
     create_qr()
 
 
+##############################################
+# this takes the first argument and opens the#
+# avalible secret file and runs it in a loop #
+# until the user kills it. Printing each otp #
+##############################################
 if(sys.argv[1] == "--get-otp"):
+
+    now = datetime.now()
+    if(int(now.second) <= 30):
+        wait_time = abs(30 - int(now.second))
+        print("syncing please wait")
+    else:
+        wait_time = abs(60 - int(now.second))
+        print("syncing please wait")
+    time.sleep(wait_time)
 
     with open("secret.txt") as f:
         secret = next(f)
 
     while(True):
+        print("This OTP is valid for the next 30 seconds")
         print(totp(secret))
         time.sleep(30)
