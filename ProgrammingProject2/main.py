@@ -11,7 +11,7 @@ while(1):
     digest_2 = hashes.Hash(hashes.SHA256())
 
     string_1 = "Thisisatest"
-    take_string = string_1[0:3]
+    take_string = string_1[0:6]
 
     digest_1.update(bytes(take_string, 'utf-8'))
 
@@ -28,7 +28,7 @@ while(1):
 
     weak_trials += 1
 
-    if(finish_1[0:3] == finish_2[0:3]):
+    if(finish_1[0:6] == finish_2[0:6]):
         print("weak: ", weak_trials)
         break
 
@@ -44,7 +44,7 @@ digest_4.update(bytes(data4, 'utf-8'))
 check_4 = digest_4.finalize()
 finish_4 = check_4.hex()
 
-birthdays.append(finish_4[0:3])
+birthdays.append(finish_4[0:6])
 
 while(1):
 
@@ -59,13 +59,13 @@ while(1):
     finish_3 = check_3.hex()
 
     for x in range(0, len(birthdays)-1):
-        if birthdays[x] == finish_3[0:3]:
+        if birthdays[x] == finish_3[0:6]:
             flag = 1
             break
         else:
             break
 
-    birthdays.append(finish_3[0:3])
+    birthdays.append(finish_3[0:6])
 
     strong_trials += 1
 

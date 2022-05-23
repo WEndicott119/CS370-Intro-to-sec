@@ -1,0 +1,19 @@
+resources
+https://www.geeksforgeeks.org/base64-b32decode-in-python/
+https://www.tutorialspoint.com/python3/time_sleep.htm
+https://www.educative.io/edpresso/how-to-generate-a-random-string-in-python
+https://medium.com/analytics-vidhya/understanding-totp-in-python-bbe994606087
+https://hackernoon.com/implementing-2fa-how-time-based-one-time-password-actually-works-with-python-examples-cm1m3ywt
+https://stackoverflow.com/questions/34520928/how-to-generate-a-qr-code-for-google-authenticator-that-correctly-shows-issuer-d
+https://www.educative.io/edpresso/what-is-base64b32decode-in-python
+https://www.geeksforgeeks.org/struct-module-python/
+https://geekyhumans.com/how-to-secure-files-using-python/
+
+to run the program run the following commands for the first and second part
+
+
+This generates the qr code and creates the secret key:
+python3 totp.py --generate-qr
+
+This starts the otp and the output to the terminal
+python3 totp.py --get-otp
